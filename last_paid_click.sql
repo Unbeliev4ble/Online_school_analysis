@@ -1,0 +1,36 @@
+with sl as (
+    select distinct
+        s.visitor_id,
+        s.visit_date,
+        s.source as utm_source,
+        s.medium as utm_medium,
+        s.campaign as utm_campaign,
+        l.lead_id,
+        l.created_at,
+        l.amount,
+        l.closing_reason,
+        l.status_id,
+        row_number()
+            over (partition by s.visitor_id order by s.visit_date desc)
+        as rn
+    from
+        sessions as s
+    left join leads as l
+        on
+            s.visitor_id = l.visitor_id
+    where
+        s.medium in (
+            'cpc', 'cpm', 'cpa',
+            'youtube', 'cpp', 'tg', 'social'
+        )
+)
+
+select *
+from sl
+where rn = 1
+order by
+    amount desc nulls last,
+    visit_date asc,
+    utm_source asc,
+    utm_medium asc,
+    utm_campaign asc;
