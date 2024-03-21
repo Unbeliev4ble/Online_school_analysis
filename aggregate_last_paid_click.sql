@@ -11,7 +11,7 @@ with sl as (
         l.status_id,
         date(s.visit_date) as visit_date,
         row_number()
-            over (partition by s.visitor_id order by s.visit_date desc)
+                over (partition by s.visitor_id order by s.visit_date desc)
         as rn
     from sessions as s
     left join leads as l
@@ -76,10 +76,10 @@ aggregated_ads as (
 
 select
     sl1.visit_date,
-    count(sl1.visitor_id) as visitors_count,
     sl1.utm_source,
     sl1.utm_medium,
-    sl1.utm_campaign,  
+    sl1.utm_campaign,
+    count(sl1.visitor_id) as visitors_count,
     round(avg(ads.total_date_cost)) as total_cost,
     sum(sl1.is_lead) as leads_count,
     sum(sl1.success_purchase) as purchases_count,
@@ -93,7 +93,7 @@ left join aggregated_ads as ads
         and
         sl1.utm_medium = ads.utm_medium
         and
-        sl1.utm_source = ads.utm_source  
+        sl1.utm_source = ads.utm_source
 group by sl1.visit_date, sl1.utm_source, sl1.utm_medium, sl1.utm_campaign
 order by
     revenue desc nulls last,

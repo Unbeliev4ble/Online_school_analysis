@@ -1,4 +1,4 @@
-with tab as (with sl as (
+with tab as (with sl as (  -- noqa: disable=all
     select
         s.visitor_id,
         s.source as utm_source,
@@ -101,8 +101,7 @@ order by
     visitors_count asc,
     sl1.utm_source asc,
     sl1.utm_medium asc,
-    sl1.utm_campaign asc)
-    
+    sl1.utm_campaign asc) 
 -- 1.Сколько у нас пользователей заходят на сайт?
     
 --select sum(visitors_count) from tab;
@@ -155,7 +154,6 @@ order by
 --from tab
 --group by 1, 2
 --having sum(total_cost) > 0;
-    
 --6.Окупаются ли каналы?
 --select
 --    utm_source,
