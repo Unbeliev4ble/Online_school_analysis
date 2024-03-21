@@ -25,7 +25,17 @@ with sl as (
         )
 )
 
-select *
+select
+    visitor_id,
+    visit_date,
+    utm_source,
+    utm_medium,
+    utm_campaign,
+    lead_id,
+    created_at,
+    amount,
+    closing_reason,
+    status_id
 from sl
 where rn = 1
 order by

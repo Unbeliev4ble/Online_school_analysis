@@ -76,10 +76,10 @@ aggregated_ads as (
 
 select
     sl1.visit_date,
+    count(sl1.visitor_id) as visitors_count,
     sl1.utm_source,
     sl1.utm_medium,
-    sl1.utm_campaign,
-    count(sl1.visitor_id) as visitors_count,
+    sl1.utm_campaign,  
     round(avg(ads.total_date_cost)) as total_cost,
     sum(sl1.is_lead) as leads_count,
     sum(sl1.success_purchase) as purchases_count,
