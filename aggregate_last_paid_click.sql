@@ -11,7 +11,7 @@ with sl as (
         l.status_id,
         date(s.visit_date) as visit_date,
         row_number()
-                over (partition by s.visitor_id order by s.visit_date desc)
+        over (partition by s.visitor_id order by s.visit_date desc)
         as rn
     from sessions as s
     left join leads as l
